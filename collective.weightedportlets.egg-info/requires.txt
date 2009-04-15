@@ -1,5 +1,0 @@
-setuptools
-plone.portlets
-
-[tests]
-zope.testing
