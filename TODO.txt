@@ -1,0 +1,9 @@
+[X] implement inlineChangePortletWeight KSS server action
+[X] register edit macros override
+[X] supply the existing weight value to the template
+[X] make sure template changes only apply to our browser layer
+[X] add local portlet retriever adapter
+[X] make sure local portlet retriever adapter gets uninstalled
+[X] validate for integers
+[ ] custom IPortletAssignmentExportImportHandler adapter that handles weights too
+[ ] docs

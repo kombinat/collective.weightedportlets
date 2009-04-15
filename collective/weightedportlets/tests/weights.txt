@@ -1,0 +1,52 @@
+Imports.
+  >>> from zope.component import getUtility, getMultiAdapter
+  >>> from plone.portlets.interfaces import IPortletManager, IPortletRetriever
+  >>> from plone.portlets.utils import hashPortletInfo
+  >>> from collective.weightedportlets.tests.base import browser
+
+Portlet weighting
+=================
+
+Check the initial listing of portlets in the left column at the site root.
+  >>> view = self.portal.restrictedTraverse('@@plone')
+  >>> manager = getUtility(IPortletManager, name='plone.leftcolumn', context=self.portal)
+  >>> retriever = getMultiAdapter((self.portal, manager), IPortletRetriever)
+  >>> [p['name'] for p in retriever.getPortlets()]
+  [u'navigation', u'login']
+
+Open the portlet management screen.
+  >>> browser.open('http://nohost/plone/@@manage-portlets')
+
+Make sure there is a weight input for each portlet.
+  >>> print browser.contents
+  <!DOCTYPE...
+  <input type="text" size="1" class="weight" title="Portlet Weight" value="50" />
+  ...
+  <input type="text" size="1" class="weight" title="Portlet Weight" value="50" />
+  ...
+
+Now we call the KSS action which would normally be triggered by Javascript
+when the weight input is changed.  We'll lower the weight of the login portlet...
+  >>> portlethash = hashPortletInfo(dict(manager='plone.leftcolumn', category='context', name='login', key='/plone'))
+  >>> browser.open('http://nohost/plone/@@inlineChangePortletWeight?portlethash=%s&viewname=%s&weight=%s' % (portlethash, 'manage-portlets', 30))
+  >>> 'replaceInnerHTML' in browser.contents
+  True
+
+(If we try to set a value that isn't an integer, we'll get an error message.)
+  >>> browser.open('http://nohost/plone/@@inlineChangePortletWeight?portlethash=%s&viewname=%s&weight=%s' % (portlethash, 'manage-portlets', 'a'))
+  >>> 'You must enter an integer for the portlet weight.' in browser.contents
+  True
+
+Now confirm that the login portlet gets sorted above the navigation portlet.
+  >>> [p['name'] for p in retriever.getPortlets()]
+  [u'login', u'navigation']
+
+Uninstallation
+==============
+
+Uninstall the product.
+  >>> self.portal.portal_quickinstaller.uninstallProducts(['collective.weightedportlets'])
+
+Now make sure that our local override of the portlet retriever has been removed.
+  >>> getMultiAdapter((self.portal, manager), IPortletRetriever)
+  <plone.portlets.retriever.PortletRetriever object at ...>
