@@ -48,4 +48,8 @@ setup(name='collective.weightedportlets',
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
       test_suite = 'collective.weightedportlets.tests.test_docs.test_suite',
+      entry_points="""
+      [z3c.autoinclude.plugin]
+      target = plone
+      """,
       )

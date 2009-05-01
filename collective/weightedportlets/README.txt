@@ -29,8 +29,13 @@ supported.
 Installation
 ============
 
-Install "Weighted Portlet Ordering" via the Add/Remove Products panel
-in Site Setup.
+Add the collective.weightedportlets egg to your buildout.  If using Plone
+3.1 or 3.2, make sure you add its ZCML as well.  The ZCML should be
+loaded automatically in Plone 3.3.
+
+Start Zope and install "Weighted Portlet Ordering" via the Add/Remove Products
+panel in Site Setup.
+
 
 Compatibility
 =============
