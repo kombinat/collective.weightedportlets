@@ -15,7 +15,7 @@ class WeightWatchingPortletAssignmentImportExportHandler(PropertyPortletAssignme
         getattr(self.assignment, ATTR)['weight'] = weight
 
     def export_weight(self, doc, node):
-        weight = getattr(self.assignment, ATTR, {}).get('weight', None)
+        weight = getattr(self.assignment, ATTR, {}).get('weight')
         if weight is None:
             return
         node.setAttribute('weight', unicode(weight))

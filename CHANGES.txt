@@ -1,8 +1,6 @@
-Changelog
-=========
 
-1.0 (xxxx-xx-xx)
-----------------
+1.0rc1 (2009-5-1)
+-----------------
 
-- Created recipe with ZopeSkel
-  [David Glick]
+- Initial release.
+  [davisagli]
