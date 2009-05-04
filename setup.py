@@ -8,13 +8,13 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '1.0rc1'
+version = '1.0rc2'
 
 long_description = (
     read('collective', 'weightedportlets', 'README.txt')
     + '\n' +
     'Change history\n'
-    '**************\n'
+    '==============\n'
     + '\n' +
     read('CHANGES.txt')
     )

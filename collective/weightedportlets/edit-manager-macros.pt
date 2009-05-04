@@ -48,7 +48,7 @@
                     <span class="managedPortletActions">
                     <input type="text" size="1" class="weight" title="Portlet Weight"
                         tal:attributes="value python:weight_info.portlet_weight(view, repeat['portlet'].index)"
-                        i18n:domain="collective.weightedportlets"/>
+                        i18n:domain="collective.weightedportlets"
                         i18n:attributes="title"/>
                     <a href="#" class="up"
                        tal:condition="not:repeat/portlet/start"
