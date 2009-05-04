@@ -7,7 +7,7 @@
   [davisagli]
 
 1.0rc1 (2009-05-01)
------------------
+-------------------
 
 * Initial release.
   [davisagli]
