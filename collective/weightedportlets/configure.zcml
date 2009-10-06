@@ -21,8 +21,7 @@
   <browser:page
       for="*"
       name="manage-portlets-macros"
-      class="plone.app.portlets.browser.manage.ManageContextualPortlets"
-      template="edit-manager-macros.pt"
+      class=".editmanager.ManageContextualPortlets"
       permission="plone.app.portlets.ManageOwnPortlets"
       layer=".interfaces.IProductLayer"
       />
