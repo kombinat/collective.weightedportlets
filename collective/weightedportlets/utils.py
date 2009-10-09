@@ -13,10 +13,10 @@ class ReplacingViewPageTemplateFile(ViewPageTemplateFile):
                  module=None, regexp=None, replacement=None):
         
         if module is not None:
-            _prefix = os.dirname(module.__file__)
+            _prefix = os.path.dirname(module.__file__)
         self.regexp = re.compile(regexp)
         self.replacement = replacement
-        super(ViewPageTemplateFile, self).__init__(self.filename, _prefix)
+        super(ViewPageTemplateFile, self).__init__(filename, _prefix)
 
     def write(self, text):
         text = self.regexp.sub(self.replacement, text)

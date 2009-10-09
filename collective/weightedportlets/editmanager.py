@@ -20,6 +20,7 @@ class ManageContextualPortlets(base.ManageContextualPortlets):
         replacement = """
         <span class="managedPortletActions">
         <input type="text" size="1" class="weight" title="Portlet Weight"
+            tal:define="weight_info nocall:context/@@portlet-weight-info"
             tal:attributes="value python:weight_info.portlet_weight(view, repeat['portlet'].index)"
             i18n:domain="collective.weightedportlets"
             i18n:attributes="title"/>
