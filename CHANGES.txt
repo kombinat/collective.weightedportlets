@@ -1,5 +1,9 @@
+1.1 (unreleased)
+----------------
+
+
 1.0 (2009-10-12)
--------------------
+----------------
 
 * Override the portlet edit macros in a way that is more compatible with
   ongoing changes in the base template from plone.app.portlets.
