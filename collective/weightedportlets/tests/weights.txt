@@ -16,41 +16,10 @@ Check the initial listing of portlets in the left column at the site root.
   >>> view = self.portal.restrictedTraverse('@@plone')
   >>> manager = getUtility(IPortletManager, name='plone.leftcolumn', context=self.portal)
   >>> retriever = getMultiAdapter((self.portal, manager), IPortletRetriever)
-  >>> [p['name'] for p in retriever.getPortlets()]
-  [u'navigation', u'login']
-
-Open the portlet management screen.
-  >>> browser.open('http://nohost/plone/@@manage-portlets')
-
-Make sure there is a weight input for each portlet.
-  >>> print browser.contents
-  <!DOCTYPE...
-  <input type="text" size="1" class="weight" title="Portlet Weight" value="50" />
-  ...
-  <input type="text" size="1" class="weight" title="Portlet Weight" value="50" />
-  ...
-
-Now we call the KSS action which would normally be triggered by Javascript
-when the weight input is changed.  We'll lower the weight of the login portlet...
-  >>> portlethash = hashPortletInfo(dict(manager='plone.leftcolumn', category='context', name='login', key='/plone'))
-  >>> browser.open('http://nohost/plone/@@inlineChangePortletWeight?portlethash=%s&viewname=%s&weight=%s' % (portlethash, 'manage-portlets', 30))
-  >>> 'replaceInnerHTML' in browser.contents
+  >>> u'navigation' in [p['name'] for p in retriever.getPortlets()]
   True
 
-(If we try to set a value that isn't an integer, we'll get an error message.)
-  >>> browser.open('http://nohost/plone/@@inlineChangePortletWeight?portlethash=%s&viewname=%s&weight=%s' % (portlethash, 'manage-portlets', 'a'))
-  >>> 'You must enter an integer for the portlet weight.' in browser.contents
-  True
-
-Now confirm that the login portlet gets sorted above the navigation portlet.
-  >>> [p['name'] for p in retriever.getPortlets()]
-  [u'login', u'navigation']
-
-
-GenericSetup Import/Export
-==========================
-
-Portlet weights can be included when loading portlet assignments using GenericSetup.
+Add a new portlet so we can compare relative weights.
   >>> context = DummyImportContext(self.portal, purge=False)
   >>> context._files['portlets.xml'] = """<?xml version="1.0"?>
   ... <portlets>
@@ -64,9 +33,44 @@ Portlet weights can be included when loading portlet assignments using GenericSe
   ...    />
   ... </portlets>"""
   >>> importPortlets(context)
+  >>> [p['name'] for p in retriever.getPortlets()]
+  [u'testportlet', u'navigation'...
+
+Open the portlet management screen.
+  >>> browser.open('http://nohost/plone/@@manage-portlets')
+
+Make sure there is a weight input for each portlet.
+  >>> print browser.contents
+  <!DOCTYPE...
+  <input type="text" size="1" class="weight" title="Portlet Weight" value="40" />
+  ...
+  <input type="text" size="1" class="weight" title="Portlet Weight" value="50" />
+  ...
+
+Now we call the KSS action which would normally be triggered by Javascript
+when the weight input is changed.  We'll lower the weight of the navigation portlet...
+  >>> portlethash = hashPortletInfo(dict(manager='plone.leftcolumn', category='context', name='navigation', key='/plone'))
+  >>> browser.open('http://nohost/plone/@@inlineChangePortletWeight?portlethash=%s&viewname=%s&weight=%s' % (portlethash, 'manage-portlets', 30))
+  >>> 'replaceInnerHTML' in browser.contents
+  True
+
+(If we try to set a value that isn't an integer, we'll get an error message.)
+  >>> browser.open('http://nohost/plone/@@inlineChangePortletWeight?portlethash=%s&viewname=%s&weight=%s' % (portlethash, 'manage-portlets', 'a'))
+  >>> 'You must enter an integer for the portlet weight.' in browser.contents
+  True
+
+Now confirm that the login portlet gets sorted above the navigation portlet.
+  >>> [p['name'] for p in retriever.getPortlets()]
+  [u'navigation', u'testportlet'...
+
+
+GenericSetup Import/Export
+==========================
+
+Portlet weights can be included when loading portlet assignments using GenericSetup.
   >>> portlets = retriever.getPortlets()
-  >>> [p['name'] for p in portlets]
-  [u'login', u'testportlet', u'navigation']
+  >>> [p['name'] for p in portlets][1]
+  u'testportlet'
   >>> getattr(portlets[1]['assignment'], ATTR, {}).get('weight')
   40
 
@@ -74,7 +78,7 @@ And they are also included when exporting portlet assignments.
   >>> context = DummyExportContext(self.portal)
   >>> exportPortlets(context)
   >>> print context._wrote[0][1]
-  <?xml...<assignment name="testportlet" category="context" key="/" manager="plone.leftcolumn" type="portlets.Calendar" weight="40"/>...
+  <?xml...<assignment name="testportlet" category="context" key="/" manager="plone.leftcolumn" type="portlets.Calendar"...weight="40"/>...
 
 
 Uninstallation
