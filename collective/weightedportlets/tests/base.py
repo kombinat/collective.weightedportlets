@@ -21,6 +21,7 @@ from Products.PloneTestCase.layer import onsetup
 # not in the Products.*) namespace. For that, see below.
 # All of Plone's products are already set up by PloneTestCase.
 
+
 @onsetup
 def setup_product():
     """Set up the package and its dependencies.
@@ -59,11 +60,13 @@ def setup_product():
 setup_product()
 ptc.setupPloneSite(products=['collective.weightedportlets'])
 
+
 class TestCase(ptc.PloneTestCase):
     """We use this base class for all the tests in this package. If
     necessary, we can put common utility or setup code in here. This
     applies to unit test cases.
     """
+
 
 class FunctionalTestCase(ptc.FunctionalTestCase):
     """We use this class for functional integration tests that use
@@ -76,6 +79,7 @@ class FunctionalTestCase(ptc.FunctionalTestCase):
         self.portal.portal_membership.addMember('contributor',
                                                 'secret',
                                                 roles, [])
+
 
 from Products.Five.testbrowser import Browser
 browser = Browser()

@@ -2,6 +2,7 @@ from plone.app.portlets.exportimport.portlets import PropertyPortletAssignmentEx
 from persistent.dict import PersistentDict
 from collective.weightedportlets import ATTR
 
+
 class WeightWatchingPortletAssignmentImportExportHandler(PropertyPortletAssignmentExportImportHandler):
 
     def import_weight(self, node):

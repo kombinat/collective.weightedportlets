@@ -12,25 +12,28 @@ from plone.app.portlets.interfaces import IPortletPermissionChecker
 
 from collective.weightedportlets import ATTR
 
+
 class PortletManagerKSS(BasePortletManagerKSS):
     """Opertions on portlets done using KSS
     """
     implements(IPloneKSSView)
-    
+
     def change_portlet_weight(self, portlethash, viewname, weight):
         try:
             weight = int(weight)
         except ValueError:
             kss_plone = self.getCommandSet('plone')
-            kss_plone.issuePortalMessage('You must enter an integer for the portlet weight.', msgtype='error')
+            msg = 'You must enter an integer for the portlet weight.'
+            kss_plone.issuePortalMessage(msg, msgtype='error')
             return self.render()
-        
+
         info = unhashPortletInfo(portlethash)
-        assignments = assignment_mapping_from_key(self.context, 
-                        info['manager'], info['category'], info['key'])
-        
+        assignments = assignment_mapping_from_key(
+            self.context, info['manager'], info['category'], info['key']
+        )
+
         IPortletPermissionChecker(assignments.__of__(aq_inner(self.context)))()
-        
+
         name = info['name']
         if not hasattr(assignments[name], ATTR):
             setattr(assignments[name], ATTR, PersistentDict())
