@@ -46,23 +46,23 @@ This product operates by overriding the following parts of the portlet
 machinery.  You may run into problems if using other products or custom
 code that also overrides these components:
 
- * the template macros used to render the portlet management UI
- * the manage-portlets.kss resource
- * the IPortletRetriever adapter
- * the IPortletAssignmentExportImportHandler adapter
+* the template macros used to render the portlet management UI
+* the manage-portlets.kss resource
+* the IPortletRetriever adapter
+* the IPortletAssignmentExportImportHandler adapter
 
 
 Self-certification
 ==================
 
- * [X] Internationalized
- * [X] Unit tests
- * [X] End-user documentation
- * [X] Internal documentation (documentation, interfaces, etc.)
- * [ ] Existed and maintained for at least 6 months
- * [X] Installs and uninstalls cleanly
- * [X] Code structure follows best practice
- * [X] No side effects on Plone sites where not installed
+* [X] Internationalized
+* [X] Unit tests
+* [X] End-user documentation
+* [X] Internal documentation (documentation, interfaces, etc.)
+* [X] Existed and maintained for at least 6 months
+* [X] Installs and uninstalls cleanly
+* [X] Code structure follows best practice
+* [X] No side effects on Plone sites where not installed
 
 
 Credits
