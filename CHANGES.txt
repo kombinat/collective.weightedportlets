@@ -1,6 +1,8 @@
 1.1 (unreleased)
 ----------------
 
+* Conditionally include kss code (Plone 4.3 compatibility) [silviot]
+
 
 1.0 (2009-10-12)
 ----------------
