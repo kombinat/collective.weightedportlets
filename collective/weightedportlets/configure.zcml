@@ -31,7 +31,7 @@
       zcml:condition="not-have plone-43"
       for="*"
       name="inlineChangePortletWeight"
-      class=".kss.PortletManagerKSS"
+      class=".kss.PortletManager"
       attribute="change_portlet_weight"
       permission="plone.app.portlets.ManageOwnPortlets"
       layer=".interfaces.IProductLayer"
