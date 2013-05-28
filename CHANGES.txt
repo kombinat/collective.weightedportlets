@@ -1,4 +1,4 @@
-1.1 (unreleased)
+2.0 (unreleased)
 ----------------
 
 * Replace KSS with jQuery (Plone 4.3 compatibility) [petschki]
