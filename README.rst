@@ -47,7 +47,6 @@ machinery.  You may run into problems if using other products or custom
 code that also overrides these components:
 
 * the template macros used to render the portlet management UI
-* the manage-portlets.kss resource
 * the IPortletRetriever adapter
 * the IPortletAssignmentExportImportHandler adapter
 
