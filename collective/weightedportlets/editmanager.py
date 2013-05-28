@@ -1,8 +1,15 @@
+from Acquisition import aq_inner
 from Products.Five import BrowserView
-from collective.weightedportlets import ATTR
-import plone.app.portlets.browser
-from plone.app.portlets.browser import manage as base
+from collective.weightedportlets import ATTR, ATTR
 from collective.weightedportlets.utils import ReplacingViewPageTemplateFile
+from persistent.dict import PersistentDict
+from plone.app.portlets.browser import manage as base
+from plone.app.portlets.browser.editmanager import ManagePortletAssignments
+from plone.app.portlets.interfaces import IPortletPermissionChecker
+from plone.app.portlets.utils import assignment_mapping_from_key
+from plone.portlets.utils import unhashPortletInfo
+from zope.interface import implements, Interface
+import plone.app.portlets.browser
 
 
 class PortletWeightInfo(BrowserView):
@@ -28,3 +35,24 @@ class ManageContextualPortlets(base.ManageContextualPortlets):
     i18n:attributes="title"/>
         """
     )
+
+
+class PortletManager(ManagePortletAssignments):
+    def change_portlet_weight(self, portlethash, viewname, weight):
+        try:
+            weight = int(weight)
+        except ValueError:
+            return self._render_column()
+
+        info = unhashPortletInfo(portlethash)
+        assignments = assignment_mapping_from_key(
+            self.context, info['manager'], info['category'], info['key']
+        )
+
+        IPortletPermissionChecker(assignments.__of__(aq_inner(self.context)))()
+
+        name = info['name']
+        if not hasattr(assignments[name], ATTR):
+            setattr(assignments[name], ATTR, PersistentDict())
+        getattr(assignments[name], ATTR)['weight'] = weight
+        return "done"

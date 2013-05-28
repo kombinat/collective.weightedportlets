@@ -28,10 +28,9 @@
       />
 
   <browser:page
-      zcml:condition="not-have plone-43"
       for="*"
       name="inlineChangePortletWeight"
-      class=".kss.PortletManager"
+      class=".editmanager.PortletManager"
       attribute="change_portlet_weight"
       permission="plone.app.portlets.ManageOwnPortlets"
       layer=".interfaces.IProductLayer"
@@ -46,11 +45,10 @@
       layer=".interfaces.IProductLayer"
       />
 
-  <browser:resource
-      zcml:condition="not-have plone-43"
-      name="manage-portlets.kss"
-      file="portlets.kss"
-      layer=".interfaces.IProductLayer"
-      />
+   <browser:resource
+       name="portlet-weight.js"
+       file="portlets.js"
+       layer=".interfaces.IProductLayer"
+       />
 
 </configure>
