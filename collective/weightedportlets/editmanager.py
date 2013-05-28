@@ -1,6 +1,6 @@
 from Acquisition import aq_inner
 from Products.Five import BrowserView
-from collective.weightedportlets import ATTR, ATTR
+from collective.weightedportlets import ATTR
 from collective.weightedportlets.utils import ReplacingViewPageTemplateFile
 from persistent.dict import PersistentDict
 from plone.app.portlets.browser import manage as base
