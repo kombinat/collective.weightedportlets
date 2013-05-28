@@ -5,7 +5,7 @@
                 portlethash = pcontainer.attr("data-portlethash"),
                 viewname = pcontainer.attr("data-viewname"),
                 weight = $(this).val();
-                $("<div />").load("@@inlineChangePortletWeight div.portlets-manager > *", {
+                $("<div />").load("@@inlineChangePortletWeight", {
                     portlethash: portlethash,
                     viewname: viewname,
                     weight: weight})

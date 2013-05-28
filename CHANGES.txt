@@ -1,7 +1,7 @@
 1.1 (unreleased)
 ----------------
 
-* Conditionally include kss code (Plone 4.3 compatibility) [silviot]
+* Replace KSS with jQuery (Plone 4.3 compatibility) [petschki]
 
 
 1.0 (2009-10-12)
@@ -16,7 +16,7 @@
 
 * Add version.txt so the version shows correctly in Plone <3.3.
   [davisagli]
-  
+
 * Fixed last-minute typo that made it into the edit macros.
   [davisagli]
 
